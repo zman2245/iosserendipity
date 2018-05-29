@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1431C8F120BB5AD200435297 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431C8F020BB5AD200435297 /* ApiService.swift */; };
+		1454507320BD80C4000B7F06 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1454507220BD80C4000B7F06 /* CoreDataStack.swift */; };
+		1454508020BD8258000B7F06 /* Hotspot+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1454507A20BD8257000B7F06 /* Hotspot+CoreDataClass.swift */; };
+		1454508120BD8258000B7F06 /* Hotspot+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1454507B20BD8257000B7F06 /* Hotspot+CoreDataProperties.swift */; };
+		1454508220BD8258000B7F06 /* Memory+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1454507C20BD8257000B7F06 /* Memory+CoreDataClass.swift */; };
+		1454508320BD8258000B7F06 /* Memory+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1454507D20BD8257000B7F06 /* Memory+CoreDataProperties.swift */; };
+		1454508420BD8258000B7F06 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1454507E20BD8257000B7F06 /* User+CoreDataClass.swift */; };
+		1454508520BD8258000B7F06 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1454507F20BD8257000B7F06 /* User+CoreDataProperties.swift */; };
 		149F9E70204DFDE5002F4CB6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149F9E6F204DFDE5002F4CB6 /* AppDelegate.swift */; };
 		149F9E72204DFDE5002F4CB6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149F9E71204DFDE5002F4CB6 /* ViewController.swift */; };
 		149F9E75204DFDE5002F4CB6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149F9E73204DFDE5002F4CB6 /* Main.storyboard */; };
@@ -35,6 +43,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1431C8F020BB5AD200435297 /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
+		1454507220BD80C4000B7F06 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		1454507A20BD8257000B7F06 /* Hotspot+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hotspot+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1454507B20BD8257000B7F06 /* Hotspot+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hotspot+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1454507C20BD8257000B7F06 /* Memory+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Memory+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1454507D20BD8257000B7F06 /* Memory+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Memory+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1454507E20BD8257000B7F06 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1454507F20BD8257000B7F06 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		149F9E6C204DFDE5002F4CB6 /* Serendipity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Serendipity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		149F9E6F204DFDE5002F4CB6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		149F9E71204DFDE5002F4CB6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -76,6 +92,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1431C8EF20BB5AA100435297 /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				1431C8F020BB5AD200435297 /* ApiService.swift */,
+			);
+			path = Api;
+			sourceTree = "<group>";
+		};
+		1431C8F220BB660400435297 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1454507A20BD8257000B7F06 /* Hotspot+CoreDataClass.swift */,
+				1454507B20BD8257000B7F06 /* Hotspot+CoreDataProperties.swift */,
+				1454507C20BD8257000B7F06 /* Memory+CoreDataClass.swift */,
+				1454507D20BD8257000B7F06 /* Memory+CoreDataProperties.swift */,
+				1454507E20BD8257000B7F06 /* User+CoreDataClass.swift */,
+				1454507F20BD8257000B7F06 /* User+CoreDataProperties.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		149F9E63204DFDE5002F4CB6 = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +136,8 @@
 		149F9E6E204DFDE5002F4CB6 /* Serendipity */ = {
 			isa = PBXGroup;
 			children = (
+				1431C8F220BB660400435297 /* Models */,
+				1431C8EF20BB5AA100435297 /* Api */,
 				149F9E6F204DFDE5002F4CB6 /* AppDelegate.swift */,
 				149F9E71204DFDE5002F4CB6 /* ViewController.swift */,
 				149F9E73204DFDE5002F4CB6 /* Main.storyboard */,
@@ -106,6 +145,7 @@
 				149F9E7B204DFDE5002F4CB6 /* LaunchScreen.storyboard */,
 				149F9E7E204DFDE5002F4CB6 /* Info.plist */,
 				149F9E76204DFDE5002F4CB6 /* Serendipity.xcdatamodeld */,
+				1454507220BD80C4000B7F06 /* CoreDataStack.swift */,
 			);
 			path = Serendipity;
 			sourceTree = "<group>";
@@ -262,9 +302,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1454508320BD8258000B7F06 /* Memory+CoreDataProperties.swift in Sources */,
 				149F9E72204DFDE5002F4CB6 /* ViewController.swift in Sources */,
 				149F9E78204DFDE5002F4CB6 /* Serendipity.xcdatamodeld in Sources */,
+				1454508220BD8258000B7F06 /* Memory+CoreDataClass.swift in Sources */,
+				1454508420BD8258000B7F06 /* User+CoreDataClass.swift in Sources */,
+				1431C8F120BB5AD200435297 /* ApiService.swift in Sources */,
+				1454508020BD8258000B7F06 /* Hotspot+CoreDataClass.swift in Sources */,
+				1454508520BD8258000B7F06 /* User+CoreDataProperties.swift in Sources */,
 				149F9E70204DFDE5002F4CB6 /* AppDelegate.swift in Sources */,
+				1454508120BD8258000B7F06 /* Hotspot+CoreDataProperties.swift in Sources */,
+				1454507320BD80C4000B7F06 /* CoreDataStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
