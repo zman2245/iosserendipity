@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yGO-dX-TGJ">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,7 +10,58 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Hotspots-->
+        <scene sceneID="4LQ-J2-avH">
+            <objects>
+                <navigationController id="kbj-De-6CT" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Hotspots" id="f59-QX-ezg" userLabel="Hotspots"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="KGj-Qf-6w8">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Fzy-Vm-TFt" kind="relationship" relationship="rootViewController" id="hfM-jJ-gPd"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hrc-H5-mfC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1834" y="433"/>
+        </scene>
+        <!--Hotspots-->
+        <scene sceneID="cJ4-Hc-onl">
+            <objects>
+                <viewController id="Fzy-Vm-TFt" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6q0-Jl-E9A">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="uub-9g-rKn"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Hotspots" id="DJG-pP-YcB"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kvd-D2-YRq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1120" y="430"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="dIF-8r-vif">
+            <objects>
+                <tabBarController id="yGO-dX-TGJ" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Rl1-ld-le4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="Yc3-WP-KJ1"/>
+                        <segue destination="kbj-De-6CT" kind="relationship" relationship="viewControllers" id="8XQ-Xy-khI"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fKf-Kv-ocj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1484" y="-134"/>
+        </scene>
+        <!--My Backpack-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Serendipity" customModuleProvider="target" sceneMemberID="viewController">
@@ -53,6 +104,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="My Backpack" id="PzE-yT-YqF" userLabel="My Backpack"/>
                     <connections>
                         <outlet property="messageTable" destination="UqA-Jk-KWB" id="Ar1-SX-oho"/>
                     </connections>
