@@ -17,6 +17,7 @@ extension Memory {
         return NSFetchRequest<Memory>(entityName: "Memory")
     }
 
+    @NSManaged public var id: Int64
     @NSManaged public var artworkLink: String?
     @NSManaged public var bgColor: Int32
     @NSManaged public var createdAt: NSDate?

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1414343820BDADE6007B3082 /* MemoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1414343720BDADE6007B3082 /* MemoryCell.swift */; };
 		1431C8F120BB5AD200435297 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431C8F020BB5AD200435297 /* ApiService.swift */; };
 		1454507320BD80C4000B7F06 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1454507220BD80C4000B7F06 /* CoreDataStack.swift */; };
 		1454508020BD8258000B7F06 /* Hotspot+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1454507A20BD8257000B7F06 /* Hotspot+CoreDataClass.swift */; };
@@ -43,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1414343720BDADE6007B3082 /* MemoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCell.swift; sourceTree = "<group>"; };
 		1431C8F020BB5AD200435297 /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		1454507220BD80C4000B7F06 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		1454507A20BD8257000B7F06 /* Hotspot+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hotspot+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -92,6 +94,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1414343520BDADD3007B3082 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1414343620BDADDB007B3082 /* Cells */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1414343620BDADDB007B3082 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				1414343720BDADE6007B3082 /* MemoryCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		1431C8EF20BB5AA100435297 /* Api */ = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +154,7 @@
 		149F9E6E204DFDE5002F4CB6 /* Serendipity */ = {
 			isa = PBXGroup;
 			children = (
+				1414343520BDADD3007B3082 /* Views */,
 				1431C8F220BB660400435297 /* Models */,
 				1431C8EF20BB5AA100435297 /* Api */,
 				149F9E6F204DFDE5002F4CB6 /* AppDelegate.swift */,
@@ -306,6 +325,7 @@
 				149F9E72204DFDE5002F4CB6 /* ViewController.swift in Sources */,
 				149F9E78204DFDE5002F4CB6 /* Serendipity.xcdatamodeld in Sources */,
 				1454508220BD8258000B7F06 /* Memory+CoreDataClass.swift in Sources */,
+				1414343820BDADE6007B3082 /* MemoryCell.swift in Sources */,
 				1454508420BD8258000B7F06 /* User+CoreDataClass.swift in Sources */,
 				1431C8F120BB5AD200435297 /* ApiService.swift in Sources */,
 				1454508020BD8258000B7F06 /* Hotspot+CoreDataClass.swift in Sources */,
