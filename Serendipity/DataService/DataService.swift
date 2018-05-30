@@ -13,7 +13,7 @@ class DataService {
     var apiService: ApiService = ApiService()
     
     func fetchAllMemories() {
-        apiService.getDataWith { (result) in
+        apiService.getDataWith(path: "memories") { (result) in
             switch result {
             case .Success(let data):
                 self.saveInCoreDataWith(array: data, mapper: self.createMemoryEntityFrom)

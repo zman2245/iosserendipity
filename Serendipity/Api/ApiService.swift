@@ -10,14 +10,17 @@ import Foundation
 
 // Looked at Tron/Alamofire libraries, but it seems plain old NSURLSession might be fine nowadays
 class ApiService {
+    
+    let baseUrl: String = "http://localhost:8080/"
+    
     enum Result <T>{
         case Success(T)
         case Error(String)
     }
     
-    func getDataWith(completion: @escaping (Result<[[String: AnyObject]]>) -> Void) {
+    func getDataWith(path: String, completion: @escaping (Result<[[String: AnyObject]]>) -> Void) {
         
-        guard let url = URL(string: "http://localhost:8080/memories") else {
+        guard let url = URL(string: baseUrl + path) else {
             return completion(.Error("Invalid URL"))
         }
         URLSession.shared.dataTask(with: url) { (data, response, error) in
