@@ -17,6 +17,7 @@
 		1454508420BD8258000B7F06 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1454507E20BD8257000B7F06 /* User+CoreDataClass.swift */; };
 		1454508520BD8258000B7F06 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1454507F20BD8257000B7F06 /* User+CoreDataProperties.swift */; };
 		147DC2E020BEEF5400F0AAD8 /* HotspotListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147DC2DF20BEEF5400F0AAD8 /* HotspotListController.swift */; };
+		147DC2E320BEF4A100F0AAD8 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147DC2E220BEF4A100F0AAD8 /* DataService.swift */; };
 		149F9E70204DFDE5002F4CB6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149F9E6F204DFDE5002F4CB6 /* AppDelegate.swift */; };
 		149F9E72204DFDE5002F4CB6 /* MyBackpackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149F9E71204DFDE5002F4CB6 /* MyBackpackController.swift */; };
 		149F9E75204DFDE5002F4CB6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 149F9E73204DFDE5002F4CB6 /* Main.storyboard */; };
@@ -55,6 +56,7 @@
 		1454507E20BD8257000B7F06 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1454507F20BD8257000B7F06 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		147DC2DF20BEEF5400F0AAD8 /* HotspotListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotspotListController.swift; sourceTree = "<group>"; };
+		147DC2E220BEF4A100F0AAD8 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		149F9E6C204DFDE5002F4CB6 /* Serendipity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Serendipity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		149F9E6F204DFDE5002F4CB6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		149F9E71204DFDE5002F4CB6 /* MyBackpackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBackpackController.swift; sourceTree = "<group>"; };
@@ -142,6 +144,14 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		147DC2E120BEF48B00F0AAD8 /* DataService */ = {
+			isa = PBXGroup;
+			children = (
+				147DC2E220BEF4A100F0AAD8 /* DataService.swift */,
+			);
+			path = DataService;
+			sourceTree = "<group>";
+		};
 		149F9E63204DFDE5002F4CB6 = {
 			isa = PBXGroup;
 			children = (
@@ -165,6 +175,7 @@
 		149F9E6E204DFDE5002F4CB6 /* Serendipity */ = {
 			isa = PBXGroup;
 			children = (
+				147DC2E120BEF48B00F0AAD8 /* DataService */,
 				147DC2DE20BEEF3300F0AAD8 /* Controllers */,
 				1414343520BDADD3007B3082 /* Views */,
 				1431C8F220BB660400435297 /* Models */,
@@ -333,6 +344,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1454508320BD8258000B7F06 /* Memory+CoreDataProperties.swift in Sources */,
+				147DC2E320BEF4A100F0AAD8 /* DataService.swift in Sources */,
 				149F9E72204DFDE5002F4CB6 /* MyBackpackController.swift in Sources */,
 				149F9E78204DFDE5002F4CB6 /* Serendipity.xcdatamodeld in Sources */,
 				147DC2E020BEEF5400F0AAD8 /* HotspotListController.swift in Sources */,

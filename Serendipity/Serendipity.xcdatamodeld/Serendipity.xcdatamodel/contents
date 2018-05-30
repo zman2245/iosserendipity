@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14133" systemVersion="17E199" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Hotspot" representedClassName=".Hotspot" syncable="YES">
-        <attribute name="center" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="radiusFeet" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="memories" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Memory" inverseName="currentHotspot" inverseEntity="Memory" syncable="YES"/>
     </entity>
@@ -26,7 +27,7 @@
         <relationship name="memories" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Memory" inverseName="owner" inverseEntity="Memory" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Hotspot" positionX="-36" positionY="45" width="128" height="90"/>
+        <element name="Hotspot" positionX="-36" positionY="45" width="128" height="105"/>
         <element name="Memory" positionX="-63" positionY="-18" width="128" height="210"/>
         <element name="User" positionX="-54" positionY="18" width="128" height="120"/>
     </elements>

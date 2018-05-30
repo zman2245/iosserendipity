@@ -17,7 +17,8 @@ extension Hotspot {
         return NSFetchRequest<Hotspot>(entityName: "Hotspot")
     }
 
-    @NSManaged public var center: String?
+    @NSManaged public var latitude: Float
+    @NSManaged public var longitude: Float
     @NSManaged public var radiusFeet: Int32
     @NSManaged public var memories: NSSet?
 
