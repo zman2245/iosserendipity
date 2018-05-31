@@ -17,12 +17,15 @@ extension User {
         return NSFetchRequest<User>(entityName: "User")
     }
 
-    @NSManaged public var bio: String?
-    @NSManaged public var location: String?
+    @NSManaged public var id: Int64
     @NSManaged public var name: String?
+    @NSManaged public var bio: String?
+    @NSManaged public var latitude: Float
+    @NSManaged public var longitude: Float
     @NSManaged public var creations: Memory?
     @NSManaged public var memories: NSSet?
-
+    @NSManaged public var createdAt: NSDate?
+    @NSManaged public var updatedAt: NSDate?
 }
 
 // MARK: Generated accessors for memories

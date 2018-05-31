@@ -44,6 +44,8 @@ class ApiService {
                     DispatchQueue.main.async {
                         completion(.Success(itemsJsonArray))
                     }
+                } else {
+                    return completion(.Error(error?.localizedDescription ?? "json serialization failed. Maybe API returned Json array instead of obj or something?"))
                 }
             } catch let error {
                 return completion(.Error(error.localizedDescription))

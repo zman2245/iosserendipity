@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14076B5D20C04EF10082C10B /* HotspotCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14076B5C20C04EF10082C10B /* HotspotCell.swift */; };
+		14076B5F20C05AA50082C10B /* HotspotDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14076B5E20C05AA50082C10B /* HotspotDetailsController.swift */; };
 		1414343820BDADE6007B3082 /* MemoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1414343720BDADE6007B3082 /* MemoryCell.swift */; };
 		1431C8F120BB5AD200435297 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1431C8F020BB5AD200435297 /* ApiService.swift */; };
 		1454507320BD80C4000B7F06 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1454507220BD80C4000B7F06 /* CoreDataStack.swift */; };
@@ -46,6 +48,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		14076B5C20C04EF10082C10B /* HotspotCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotspotCell.swift; sourceTree = "<group>"; };
+		14076B5E20C05AA50082C10B /* HotspotDetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotspotDetailsController.swift; sourceTree = "<group>"; };
 		1414343720BDADE6007B3082 /* MemoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCell.swift; sourceTree = "<group>"; };
 		1431C8F020BB5AD200435297 /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		1454507220BD80C4000B7F06 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
@@ -110,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				1414343720BDADE6007B3082 /* MemoryCell.swift */,
+				14076B5C20C04EF10082C10B /* HotspotCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -140,6 +145,7 @@
 			children = (
 				149F9E71204DFDE5002F4CB6 /* MyBackpackController.swift */,
 				147DC2DF20BEEF5400F0AAD8 /* HotspotListController.swift */,
+				14076B5E20C05AA50082C10B /* HotspotDetailsController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -347,7 +353,9 @@
 				147DC2E320BEF4A100F0AAD8 /* DataService.swift in Sources */,
 				149F9E72204DFDE5002F4CB6 /* MyBackpackController.swift in Sources */,
 				149F9E78204DFDE5002F4CB6 /* Serendipity.xcdatamodeld in Sources */,
+				14076B5F20C05AA50082C10B /* HotspotDetailsController.swift in Sources */,
 				147DC2E020BEEF5400F0AAD8 /* HotspotListController.swift in Sources */,
+				14076B5D20C04EF10082C10B /* HotspotCell.swift in Sources */,
 				1454508220BD8258000B7F06 /* Memory+CoreDataClass.swift in Sources */,
 				1414343820BDADE6007B3082 /* MemoryCell.swift in Sources */,
 				1454508420BD8258000B7F06 /* User+CoreDataClass.swift in Sources */,

@@ -17,11 +17,15 @@ extension Hotspot {
         return NSFetchRequest<Hotspot>(entityName: "Hotspot")
     }
 
+    @NSManaged public var id: Int64
+    @NSManaged public var title: String?
+    @NSManaged public var about: String?
     @NSManaged public var latitude: Float
     @NSManaged public var longitude: Float
-    @NSManaged public var radiusFeet: Int32
+    @NSManaged public var radiusInFeet: Int32
     @NSManaged public var memories: NSSet?
-
+    @NSManaged public var createdAt: NSDate?
+    @NSManaged public var updatedAt: NSDate?
 }
 
 // MARK: Generated accessors for memories
