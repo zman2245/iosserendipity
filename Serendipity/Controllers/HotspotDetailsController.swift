@@ -28,9 +28,10 @@ class HotspotDetailsController: UIViewController {
     
     private func configMap() {
 //        let location = CLLocation(latitude: Double((hotspot?.latitude)!), longitude: Double((hotspot?.longitude)!))
-        let location = CLLocation(latitude: 21.282778, longitude: -157.829444)
+        let location = CLLocation(latitude: 42.9926357, longitude: -77.262238)
         
-        let regionRadius: CLLocationDistance = 1000
+        // in meters
+        let regionRadius: CLLocationDistance = 100000
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
                                                                   regionRadius, regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
