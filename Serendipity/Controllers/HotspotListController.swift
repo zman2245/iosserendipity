@@ -60,7 +60,7 @@ class HotspotListController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HotspotCell", for: indexPath) as! HotspotCell
         if let hotspot = fetchedhResultController.object(at: indexPath) as? Hotspot {
-            cell.textLabel?.text = String(format: "latitude: %f", hotspot.latitude)
+            cell.textLabel?.text = hotspot.title ?? "No title"
         }
         return cell
     }
