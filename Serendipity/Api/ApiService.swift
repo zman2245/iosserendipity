@@ -61,11 +61,10 @@ class ApiService {
             return
         }
         request.httpBody = httpBody
-        request.timeoutInterval = 5
 
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             self.resultHandler(data, response, error, completion: completion)
-        }
+        }.resume()
     }
     
     // All requests handle results the same
@@ -81,6 +80,10 @@ class ApiService {
         
         do {
             if let json = try JSONSerialization.jsonObject(with: data, options: [.mutableContainers]) as? [String: AnyObject] {
+                
+                if (json["status"] != nil && json["status"] as! NSNumber != NSNumber(integerLiteral: 200)) {
+                    return completion(.Error(json.description))
+                }
                 
                 // run handler on main thread because consumer would like it I guess?
                 DispatchQueue.main.async {

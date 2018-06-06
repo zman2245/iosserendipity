@@ -53,6 +53,10 @@
                                 <rect key="frame" x="16" y="381" width="145" height="135"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ced-Aw-50y">
+                                <rect key="frame" x="192" y="384" width="167" height="132"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="M4P-Ry-LSE"/>
@@ -68,6 +72,7 @@
                         <outlet property="hotspotIdField" destination="KxO-wa-Fbt" id="EE7-nV-Tzb"/>
                         <outlet property="imageView" destination="Tjn-DV-2aX" id="omU-qX-GHa"/>
                         <outlet property="messageView" destination="zcb-WY-FPw" id="a3n-kj-tae"/>
+                        <outlet property="testResponseImageView" destination="Ced-Aw-50y" id="OqW-Lv-PQE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bGa-tB-b33" userLabel="First Responder" sceneMemberID="firstResponder"/>

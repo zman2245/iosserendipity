@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 class DataService {
     
@@ -23,7 +24,6 @@ class DataService {
             case .Error(let message):
                 DispatchQueue.main.async {
                     print(message)
-//                    self.showAlertWith(title: "Error", message: message)
                 }
             }
         }
@@ -38,16 +38,41 @@ class DataService {
             case .Error(let message):
                 DispatchQueue.main.async {
                     print(message)
-                    //                    self.showAlertWith(title: "Error", message: message)
                 }
             }
         }
     }
     
-    func saveNewMemory(hotspot: Int, message: String, image: NSData) {
-        let params: [String:AnyObject] =
+    // TODO: image caching
+    func fetchImage(url: String, completion: @escaping (Bool, Data?) -> Void) {
+        apiService.getDataWith(path: url) { (result) in
+            switch result {
+            case .Success(let data):
+                // decode the image for consumer code
+                let base64String: String = data["base64Image"] as! String
+                let decodedData = Data(base64Encoded: base64String, options: .ignoreUnknownCharacters)
+                
+                DispatchQueue.main.async {
+                    completion(true, decodedData)
+                }
+            case .Error(_):
+                DispatchQueue.main.async {
+                    completion(false, nil)
+                }
+            }
+        }
+    }
+    
+    func saveNewMemory(hotspot: Int, message: String, image: UIImage?) {
+        var params: [String:AnyObject] =
             ["hotspotId": hotspot as AnyObject,
              "message": message as AnyObject]
+        
+        if (image != nil) {
+            let imageData = UIImagePNGRepresentation(image!)!
+            let encodedImage = imageData.base64EncodedString()
+            params["base64Image"] = encodedImage as AnyObject
+        }
         
         apiService.post(path: "memories", params: params) { (result) in
             switch result {

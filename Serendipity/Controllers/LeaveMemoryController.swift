@@ -14,6 +14,7 @@ class LeaveMemoryController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var messageView: UITextView!
     @IBOutlet weak var imageView: UIImageView!
     
+    @IBOutlet weak var testResponseImageView: UIImageView!
     let imagePicker = UIImagePickerController()
     
     let imageService: ImageService = ImageService()
@@ -28,6 +29,12 @@ class LeaveMemoryController: UIViewController, UIImagePickerControllerDelegate, 
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(tapGestureRecognizer)
         imageView.backgroundColor = UIColor.lightGray
+        
+        dataService.fetchImage(url: "images/memories/28") { (success, data) in
+            if (success && data != nil) {
+                self.testResponseImageView.image = UIImage(data: data!)
+            }
+        }
     }
     
     // MARK: - Actions
@@ -49,7 +56,7 @@ class LeaveMemoryController: UIViewController, UIImagePickerControllerDelegate, 
             return
         }
         
-        dataService.saveNewMemory(hotspot: hotspotId, message: message, image: NSData())
+        dataService.saveNewMemory(hotspot: hotspotId, message: message, image: imageView.image)
     }
     
     // MARK: - UIImagePickerControllerDelegate
