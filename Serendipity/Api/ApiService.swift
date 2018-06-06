@@ -24,35 +24,32 @@ class ApiService {
             return completion(.Error("Invalid URL"))
         }
         URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard error == nil else {
-                return completion(.Error(error!.localizedDescription))
-            }
-            
-            guard let data = data else {
-                return completion(.Error(error?.localizedDescription ?? "There are no new Items to show"))
-            }
-            
-            do {
-                if let json = try JSONSerialization.jsonObject(with: data, options: [.mutableContainers]) as? [String: AnyObject] {
-                    
-//                    guard let itemsJsonArray = json["items"] as? [[String: AnyObject]] else {
-//                        return completion(.Error("json nil or items not found"))
+            self.resultHandler(data, response, error, completion: completion)
+//            guard error == nil else {
+//                return completion(.Error(error!.localizedDescription))
+//            }
+//
+//            guard let data = data else {
+//                return completion(.Error(error?.localizedDescription ?? "There's no response"))
+//            }
+//
+//            do {
+//                if let json = try JSONSerialization.jsonObject(with: data, options: [.mutableContainers]) as? [String: AnyObject] {
+//
+//                    // run handler on main thread because consumer would like it I guess?
+//                    DispatchQueue.main.async {
+//                        completion(.Success(json))
 //                    }
-                    
-                    // run handler on main thread because consumer would like it I guess?
-                    DispatchQueue.main.async {
-                        completion(.Success(json))
-                    }
-                } else {
-                    return completion(.Error(error?.localizedDescription ?? "json serialization failed. Maybe API returned Json array instead of obj or something?"))
-                }
-            } catch let error {
-                return completion(.Error(error.localizedDescription))
-            }
+//                } else {
+//                    return completion(.Error(error?.localizedDescription ?? "json serialization failed. Maybe API returned Json array instead of obj or something?"))
+//                }
+//            } catch let error {
+//                return completion(.Error(error.localizedDescription))
+//            }
         }.resume()
     }
     
-    func postNew(path: String, params: [String: AnyObject], completion: @escaping (Result<[[String: AnyObject]]>) -> Void) {
+    func post(path: String, params: [String: AnyObject], completion: @escaping (Result<[String: AnyObject]>) -> Void) {
         guard let url = URL(string: baseUrl + path) else {
             return completion(.Error("Invalid URL"))
         }
@@ -64,6 +61,36 @@ class ApiService {
             return
         }
         request.httpBody = httpBody
+        request.timeoutInterval = 5
+
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            self.resultHandler(data, response, error, completion: completion)
+        }
+    }
+    
+    // All requests handle results the same
+    // Note that POST requests are designed to return the item that was POSTed
+    private func resultHandler(_ data: Data?, _ response: URLResponse?, _ error: Error?, completion: @escaping (Result<[String: AnyObject]>) -> Void) {
+        guard error == nil else {
+            return completion(.Error(error!.localizedDescription))
+        }
         
+        guard let data = data else {
+            return completion(.Error(error?.localizedDescription ?? "There's no response"))
+        }
+        
+        do {
+            if let json = try JSONSerialization.jsonObject(with: data, options: [.mutableContainers]) as? [String: AnyObject] {
+                
+                // run handler on main thread because consumer would like it I guess?
+                DispatchQueue.main.async {
+                    completion(.Success(json))
+                }
+            } else {
+                return completion(.Error(error?.localizedDescription ?? "json serialization failed. Maybe API returned Json array instead of obj or something?"))
+            }
+        } catch let error {
+            return completion(.Error(error.localizedDescription))
+        }
     }
 }

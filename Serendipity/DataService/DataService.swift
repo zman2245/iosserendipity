@@ -45,7 +45,21 @@ class DataService {
     }
     
     func saveNewMemory(hotspot: Int, message: String, image: NSData) {
+        let params: [String:AnyObject] =
+            ["hotspotId": hotspot as AnyObject,
+             "message": message as AnyObject]
         
+        apiService.post(path: "memories", params: params) { (result) in
+            switch result {
+            case .Success(let data):
+                self.saveInCoreDataWith(data: data, mapper: self.mappers.createMemoryEntityFrom)
+                print("New memory saved: " + data.description)
+            case .Error(let message):
+                DispatchQueue.main.async {
+                    print(message)
+                }
+            }
+        }
     }
     
     // MARK: - Helpers

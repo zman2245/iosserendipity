@@ -41,6 +41,15 @@ class LeaveMemoryController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @IBAction func save(_ sender: Any) {
+        // TODO: image data
+        guard let hotspotId = Int(hotspotIdField.text!) else {
+            return
+        }
+        guard let message = messageView.text else {
+            return
+        }
+        
+        dataService.saveNewMemory(hotspot: hotspotId, message: message, image: NSData())
     }
     
     // MARK: - UIImagePickerControllerDelegate
