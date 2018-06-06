@@ -18,7 +18,7 @@ class ApiService {
         case Error(String)
     }
     
-    func getDataWith(path: String, completion: @escaping (Result<[[String: AnyObject]]>) -> Void) {
+    func getDataWith(path: String, completion: @escaping (Result<[String: AnyObject]>) -> Void) {
         
         guard let url = URL(string: baseUrl + path) else {
             return completion(.Error("Invalid URL"))
@@ -35,14 +35,13 @@ class ApiService {
             do {
                 if let json = try JSONSerialization.jsonObject(with: data, options: [.mutableContainers]) as? [String: AnyObject] {
                     
-                    guard let itemsJsonArray = json["items"] as? [[String: AnyObject]] else {
-                        print("json nil or items not found")
-                        return
-                    }
+//                    guard let itemsJsonArray = json["items"] as? [[String: AnyObject]] else {
+//                        return completion(.Error("json nil or items not found"))
+//                    }
                     
                     // run handler on main thread because consumer would like it I guess?
                     DispatchQueue.main.async {
-                        completion(.Success(itemsJsonArray))
+                        completion(.Success(json))
                     }
                 } else {
                     return completion(.Error(error?.localizedDescription ?? "json serialization failed. Maybe API returned Json array instead of obj or something?"))
@@ -53,7 +52,18 @@ class ApiService {
         }.resume()
     }
     
-    func getMyMemories() {
+    func postNew(path: String, params: [String: AnyObject], completion: @escaping (Result<[[String: AnyObject]]>) -> Void) {
+        guard let url = URL(string: baseUrl + path) else {
+            return completion(.Error("Invalid URL"))
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+        guard let httpBody = try? JSONSerialization.data(withJSONObject: params, options: []) else {
+            return
+        }
+        request.httpBody = httpBody
         
     }
 }

@@ -18,6 +18,10 @@
 		1454508320BD8258000B7F06 /* Memory+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1454507D20BD8257000B7F06 /* Memory+CoreDataProperties.swift */; };
 		1454508420BD8258000B7F06 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1454507E20BD8257000B7F06 /* User+CoreDataClass.swift */; };
 		1454508520BD8258000B7F06 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1454507F20BD8257000B7F06 /* User+CoreDataProperties.swift */; };
+		145C864D20C812910086570D /* DataServiceErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145C864C20C812910086570D /* DataServiceErrors.swift */; };
+		145C864F20C822140086570D /* LeaveMemoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145C864E20C822140086570D /* LeaveMemoryController.swift */; };
+		145C865120C822CD0086570D /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145C865020C822CD0086570D /* ImageService.swift */; };
+		145C865320C827430086570D /* DataMappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145C865220C827430086570D /* DataMappers.swift */; };
 		147DC2E020BEEF5400F0AAD8 /* HotspotListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147DC2DF20BEEF5400F0AAD8 /* HotspotListController.swift */; };
 		147DC2E320BEF4A100F0AAD8 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147DC2E220BEF4A100F0AAD8 /* DataService.swift */; };
 		149F9E70204DFDE5002F4CB6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149F9E6F204DFDE5002F4CB6 /* AppDelegate.swift */; };
@@ -59,6 +63,10 @@
 		1454507D20BD8257000B7F06 /* Memory+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Memory+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1454507E20BD8257000B7F06 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1454507F20BD8257000B7F06 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		145C864C20C812910086570D /* DataServiceErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataServiceErrors.swift; sourceTree = "<group>"; };
+		145C864E20C822140086570D /* LeaveMemoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaveMemoryController.swift; sourceTree = "<group>"; };
+		145C865020C822CD0086570D /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
+		145C865220C827430086570D /* DataMappers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataMappers.swift; sourceTree = "<group>"; };
 		147DC2DF20BEEF5400F0AAD8 /* HotspotListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotspotListController.swift; sourceTree = "<group>"; };
 		147DC2E220BEF4A100F0AAD8 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		149F9E6C204DFDE5002F4CB6 /* Serendipity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Serendipity.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -146,6 +154,7 @@
 				149F9E71204DFDE5002F4CB6 /* MyBackpackController.swift */,
 				147DC2DF20BEEF5400F0AAD8 /* HotspotListController.swift */,
 				14076B5E20C05AA50082C10B /* HotspotDetailsController.swift */,
+				145C864E20C822140086570D /* LeaveMemoryController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -154,6 +163,9 @@
 			isa = PBXGroup;
 			children = (
 				147DC2E220BEF4A100F0AAD8 /* DataService.swift */,
+				145C864C20C812910086570D /* DataServiceErrors.swift */,
+				145C865020C822CD0086570D /* ImageService.swift */,
+				145C865220C827430086570D /* DataMappers.swift */,
 			);
 			path = DataService;
 			sourceTree = "<group>";
@@ -354,16 +366,20 @@
 				149F9E72204DFDE5002F4CB6 /* MyBackpackController.swift in Sources */,
 				149F9E78204DFDE5002F4CB6 /* Serendipity.xcdatamodeld in Sources */,
 				14076B5F20C05AA50082C10B /* HotspotDetailsController.swift in Sources */,
+				145C865120C822CD0086570D /* ImageService.swift in Sources */,
 				147DC2E020BEEF5400F0AAD8 /* HotspotListController.swift in Sources */,
 				14076B5D20C04EF10082C10B /* HotspotCell.swift in Sources */,
 				1454508220BD8258000B7F06 /* Memory+CoreDataClass.swift in Sources */,
 				1414343820BDADE6007B3082 /* MemoryCell.swift in Sources */,
+				145C865320C827430086570D /* DataMappers.swift in Sources */,
 				1454508420BD8258000B7F06 /* User+CoreDataClass.swift in Sources */,
 				1431C8F120BB5AD200435297 /* ApiService.swift in Sources */,
+				145C864D20C812910086570D /* DataServiceErrors.swift in Sources */,
 				1454508020BD8258000B7F06 /* Hotspot+CoreDataClass.swift in Sources */,
 				1454508520BD8258000B7F06 /* User+CoreDataProperties.swift in Sources */,
 				149F9E70204DFDE5002F4CB6 /* AppDelegate.swift in Sources */,
 				1454508120BD8258000B7F06 /* Hotspot+CoreDataProperties.swift in Sources */,
+				145C864F20C822140086570D /* LeaveMemoryController.swift in Sources */,
 				1454507320BD80C4000B7F06 /* CoreDataStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
