@@ -70,12 +70,31 @@ class HotspotListController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         let center = CLLocation(latitude: currentLat, longitude: currentLong)
+        let annotations = buildAnnotations()
         
         // in meters
         let regionRadius: CLLocationDistance = 100000
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(center.coordinate,
                                                                   regionRadius, regionRadius)
         nearbyMap.setRegion(coordinateRegion, animated: true)
+        
+        nearbyMap.removeAnnotations(nearbyMap.annotations)
+        nearbyMap.addAnnotations(annotations)
+        
+    }
+    
+    func buildAnnotations() -> [MKAnnotation] {
+        var annotations: [MKAnnotation] = []
+        var a: MKPlacemark
+        
+        for hotspot in fetchedhResultController.fetchedObjects! as! [Hotspot] {
+            let coordinates = CLLocationCoordinate2DMake(Double(hotspot.latitude), Double(hotspot.longitude))
+            a = MKPlacemark(coordinate: coordinates)
+            
+            annotations.append(a)
+        }
+        
+        return annotations
     }
     
     // MARK: - UITableView delegate and dataSource methods
