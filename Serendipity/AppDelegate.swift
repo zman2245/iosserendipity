@@ -8,12 +8,14 @@
 
 import UIKit
 import CoreData
+import CoreLocation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var locationService: LocationService = LocationService()
+    var locationManager: CLLocationManager?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -21,6 +23,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // print out directory for debugging help
         if let url = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).last {
             print(url.absoluteString)
+        }
+        
+        if (launchOptions?[UIApplicationLaunchOptionsKey.location] != nil) {
+            locationManager = CLLocationManager()
+            locationManager!.delegate = locationService
+            locationManager!.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager!.requestAlwaysAuthorization()
+            
+            if CLLocationManager.locationServicesEnabled() {
+                locationManager!.startUpdatingLocation()
+                //locationManager.startUpdatingHeading()
+            }
         }
         
         return true
