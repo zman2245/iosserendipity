@@ -12,6 +12,7 @@ import CoreData
 class HotspotListController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var hotspotTable: UITableView!
+    @objc dynamic var locationService: LocationService = LocationService.sharedLocation
     
     // for help passing data into HotspotDetailsController
     var selectedHotspot: Hotspot?
@@ -38,6 +39,11 @@ class HotspotListController: UIViewController, UITableViewDelegate, UITableViewD
             print("COUNT FETCHED FIRST: \(String(describing: self.fetchedhResultController.sections?[0].numberOfObjects))")
         } catch let error  {
             print("ERROR: \(error)")
+        }
+        
+        print("init lat:", locationService.currentLat)
+        NotificationCenter.default.addObserver(forName: LocationService.LOCATION_UPDATE_NOTIFICATION, object: nil, queue: nil) { (notification) in
+            print("location updated. new lat:", self.locationService.currentLat)
         }
     }
     

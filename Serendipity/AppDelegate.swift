@@ -14,8 +14,8 @@ import CoreLocation
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var locationService: LocationService = LocationService()
     var locationManager: CLLocationManager?
+    var sharedLocation = LocationService.sharedLocation
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -26,15 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         if (launchOptions?[UIApplicationLaunchOptionsKey.location] != nil) {
-            locationManager = CLLocationManager()
-            locationManager!.delegate = locationService
-            locationManager!.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager!.requestAlwaysAuthorization()
-            
-            if CLLocationManager.locationServicesEnabled() {
-                locationManager!.startUpdatingLocation()
-                //locationManager.startUpdatingHeading()
-            }
+            // TODO: this where I can consider posting a device notification to the user if they are nearby a "hotspot"
         }
         
         return true
