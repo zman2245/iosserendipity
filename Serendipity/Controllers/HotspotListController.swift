@@ -8,10 +8,13 @@
 
 import UIKit
 import CoreData
+import MapKit
 
 class HotspotListController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var hotspotTable: UITableView!
+    @IBOutlet weak var nearbyMap: MKMapView!
+    
     @objc dynamic var locationService: LocationService = LocationService.sharedLocation
     
     // for help passing data into HotspotDetailsController
@@ -45,6 +48,8 @@ class HotspotListController: UIViewController, UITableViewDelegate, UITableViewD
         NotificationCenter.default.addObserver(forName: LocationService.LOCATION_UPDATE_NOTIFICATION, object: nil, queue: nil) { (notification) in
             print("location updated. new lat:", self.locationService.currentLat)
         }
+        
+        initMap()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -52,6 +57,25 @@ class HotspotListController: UIViewController, UITableViewDelegate, UITableViewD
             let vc = segue.destination as? HotspotDetailsController
             vc?.hotspot = self.selectedHotspot
         }
+    }
+    
+    // MARK: - Map handling
+    func initMap() {
+        guard let currentLat = self.locationService.currentLat else {
+            return
+        }
+        
+        guard let currentLong = self.locationService.currentLong else {
+            return
+        }
+        
+        let center = CLLocation(latitude: currentLat, longitude: currentLong)
+        
+        // in meters
+        let regionRadius: CLLocationDistance = 100000
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(center.coordinate,
+                                                                  regionRadius, regionRadius)
+        nearbyMap.setRegion(coordinateRegion, animated: true)
     }
     
     // MARK: - UITableView delegate and dataSource methods
