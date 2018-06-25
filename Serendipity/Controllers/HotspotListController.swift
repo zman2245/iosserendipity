@@ -24,29 +24,11 @@ class HotspotListController: UIViewController, UITableViewDelegate, UITableViewD
     // for help passing data into HotspotDetailsController
     var selectedHotspot: Hotspot?
     
-//    lazy var fetchedhResultController: NSFetchedResultsController<NSFetchRequestResult> = {
-//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: Hotspot.self))
-//        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
-//        let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.sharedInstance.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-//        frc.delegate = self
-//        return frc
-//    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.hotspotTable.delegate = self
         self.hotspotTable.dataSource = self
-        
-//        let service = DataService()
-//        service.fetchAllHotspots()
-//
-//        do {
-//            try self.fetchedhResultController.performFetch()
-//            print("COUNT FETCHED FIRST: \(String(describing: self.fetchedhResultController.sections?[0].numberOfObjects))")
-//        } catch let error  {
-//            print("ERROR: \(error)")
-//        }
         
         self.lookupHotspots()
         NotificationCenter.default.addObserver(forName: LocationService.LOCATION_UPDATE_NOTIFICATION, object: nil, queue: nil) { (notification) in
@@ -134,24 +116,3 @@ class HotspotListController: UIViewController, UITableViewDelegate, UITableViewD
         self.performSegue(withIdentifier: "ShowHotspotDetails", sender: self)
     }
 }
-//
-//extension HotspotListController: NSFetchedResultsControllerDelegate {
-//    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-//        switch type {
-//        case .insert:
-//            self.hotspotTable.insertRows(at: [newIndexPath!], with: .automatic)
-//        case .delete:
-//            self.hotspotTable.deleteRows(at: [indexPath!], with: .automatic)
-//        default:
-//            break
-//        }
-//    }
-//    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-//        self.hotspotTable.endUpdates()
-//    }
-//
-//    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-//        hotspotTable.beginUpdates()
-//    }
-//}
-
