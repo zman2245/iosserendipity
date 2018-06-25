@@ -12,21 +12,25 @@ import MapKit
 
 class HotspotListController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    let DEFAULT_RADIUS_M: Double = 100000
+    
     @IBOutlet weak var hotspotTable: UITableView!
     @IBOutlet weak var nearbyMap: MKMapView!
     
-    @objc dynamic var locationService: LocationService = LocationService.sharedLocation
+    var locationService: LocationService = LocationService.sharedLocation
+    var dataService: DataService = DataService()
+    var hotspots: [Hotspot] = []
     
     // for help passing data into HotspotDetailsController
     var selectedHotspot: Hotspot?
     
-    lazy var fetchedhResultController: NSFetchedResultsController<NSFetchRequestResult> = {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: Hotspot.self))
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
-        let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.sharedInstance.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-        frc.delegate = self
-        return frc
-    }()
+//    lazy var fetchedhResultController: NSFetchedResultsController<NSFetchRequestResult> = {
+//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: Hotspot.self))
+//        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+//        let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.sharedInstance.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+//        frc.delegate = self
+//        return frc
+//    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,22 +38,21 @@ class HotspotListController: UIViewController, UITableViewDelegate, UITableViewD
         self.hotspotTable.delegate = self
         self.hotspotTable.dataSource = self
         
-        let service = DataService()
-        service.fetchAllHotspots()
+//        let service = DataService()
+//        service.fetchAllHotspots()
+//
+//        do {
+//            try self.fetchedhResultController.performFetch()
+//            print("COUNT FETCHED FIRST: \(String(describing: self.fetchedhResultController.sections?[0].numberOfObjects))")
+//        } catch let error  {
+//            print("ERROR: \(error)")
+//        }
         
-        do {
-            try self.fetchedhResultController.performFetch()
-            print("COUNT FETCHED FIRST: \(String(describing: self.fetchedhResultController.sections?[0].numberOfObjects))")
-        } catch let error  {
-            print("ERROR: \(error)")
-        }
-        
-        print("init lat:", locationService.currentLat)
+        self.lookupHotspots()
         NotificationCenter.default.addObserver(forName: LocationService.LOCATION_UPDATE_NOTIFICATION, object: nil, queue: nil) { (notification) in
             print("location updated. new lat:", self.locationService.currentLat)
+            self.lookupHotspots()
         }
-        
-        initMap()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -60,7 +63,7 @@ class HotspotListController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     // MARK: - Map handling
-    func initMap() {
+    func lookupHotspots() {
         guard let currentLat = self.locationService.currentLat else {
             return
         }
@@ -69,25 +72,38 @@ class HotspotListController: UIViewController, UITableViewDelegate, UITableViewD
             return
         }
         
-        let center = CLLocation(latitude: currentLat, longitude: currentLong)
+        dataService.fetchHotspots(latitude: currentLat, longitude: currentLong, radius: Int(DEFAULT_RADIUS_M)) { (result) in
+            switch result {
+            case .Success(let data):
+                self.hotspots = data
+                self.initMap()
+                self.hotspotTable.reloadData()
+            case .Error(let message):
+                // TODO: something user friendly
+                print(message)
+            }
+        }
+    }
+    
+    func initMap() {
+        let center = CLLocation(latitude: locationService.currentLat!, longitude: locationService.currentLong!)
         let annotations = buildAnnotations()
         
         // in meters
-        let regionRadius: CLLocationDistance = 100000
+        let regionRadius: CLLocationDistance = DEFAULT_RADIUS_M
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(center.coordinate,
                                                                   regionRadius, regionRadius)
         nearbyMap.setRegion(coordinateRegion, animated: true)
         
         nearbyMap.removeAnnotations(nearbyMap.annotations)
         nearbyMap.addAnnotations(annotations)
-        
     }
     
     func buildAnnotations() -> [MKAnnotation] {
         var annotations: [MKAnnotation] = []
         var a: MKPlacemark
         
-        for hotspot in fetchedhResultController.fetchedObjects! as! [Hotspot] {
+        for hotspot in self.hotspots {
             let coordinates = CLLocationCoordinate2DMake(Double(hotspot.latitude), Double(hotspot.longitude))
             a = MKPlacemark(coordinate: coordinates)
             
@@ -100,45 +116,42 @@ class HotspotListController: UIViewController, UITableViewDelegate, UITableViewD
     // MARK: - UITableView delegate and dataSource methods
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let count = fetchedhResultController.sections?.first?.numberOfObjects {
-            return count
-        }
-        return 0;
+        return hotspots.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HotspotCell", for: indexPath) as! HotspotCell
-        if let hotspot = fetchedhResultController.object(at: indexPath) as? Hotspot {
-            cell.textLabel?.text = hotspot.title ?? "No title"
-        }
+        let hotspot = hotspots[indexPath.row]
+
+        cell.textLabel?.text = hotspot.title ?? "No title"
+
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let object = self.fetchedhResultController.object(at: indexPath)
-        
-        self.selectedHotspot = (object as! Hotspot)
+        let hotspot = hotspots[indexPath.row]
+        self.selectedHotspot = hotspot
         self.performSegue(withIdentifier: "ShowHotspotDetails", sender: self)
     }
 }
-
-extension HotspotListController: NSFetchedResultsControllerDelegate {
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        switch type {
-        case .insert:
-            self.hotspotTable.insertRows(at: [newIndexPath!], with: .automatic)
-        case .delete:
-            self.hotspotTable.deleteRows(at: [indexPath!], with: .automatic)
-        default:
-            break
-        }
-    }
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        self.hotspotTable.endUpdates()
-    }
-    
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        hotspotTable.beginUpdates()
-    }
-}
+//
+//extension HotspotListController: NSFetchedResultsControllerDelegate {
+//    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+//        switch type {
+//        case .insert:
+//            self.hotspotTable.insertRows(at: [newIndexPath!], with: .automatic)
+//        case .delete:
+//            self.hotspotTable.deleteRows(at: [indexPath!], with: .automatic)
+//        default:
+//            break
+//        }
+//    }
+//    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+//        self.hotspotTable.endUpdates()
+//    }
+//
+//    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+//        hotspotTable.beginUpdates()
+//    }
+//}
 

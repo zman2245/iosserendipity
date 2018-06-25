@@ -13,7 +13,7 @@ class ApiService {
     
     let baseUrl: String = "http://localhost:8080/"
     
-    enum Result <T>{
+    enum Result <T> {
         case Success(T)
         case Error(String)
     }
@@ -25,27 +25,6 @@ class ApiService {
         }
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             self.resultHandler(data, response, error, completion: completion)
-//            guard error == nil else {
-//                return completion(.Error(error!.localizedDescription))
-//            }
-//
-//            guard let data = data else {
-//                return completion(.Error(error?.localizedDescription ?? "There's no response"))
-//            }
-//
-//            do {
-//                if let json = try JSONSerialization.jsonObject(with: data, options: [.mutableContainers]) as? [String: AnyObject] {
-//
-//                    // run handler on main thread because consumer would like it I guess?
-//                    DispatchQueue.main.async {
-//                        completion(.Success(json))
-//                    }
-//                } else {
-//                    return completion(.Error(error?.localizedDescription ?? "json serialization failed. Maybe API returned Json array instead of obj or something?"))
-//                }
-//            } catch let error {
-//                return completion(.Error(error.localizedDescription))
-//            }
         }.resume()
     }
     
@@ -96,4 +75,18 @@ class ApiService {
             return completion(.Error(error.localizedDescription))
         }
     }
+}
+
+extension Dictionary {
+    var queryParameters: String {
+        var parts: [String] = []
+        for (key, value) in self {
+            let part = String(format: "%@=%@",
+                              String(describing: key).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!,
+                              String(describing: value).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
+            parts.append(part as String)
+        }
+        return parts.joined(separator: "&")
+    }
+    
 }

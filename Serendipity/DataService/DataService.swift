@@ -33,11 +33,26 @@ class DataService {
         apiService.getDataWith(path: "hotspots") { (result) in
             switch result {
             case .Success(let data):
-                self.saveCollectionInCoreDataWith(data: data, mapper: self.mappers.createHotspotEntityFrom)
+                _ = self.saveCollectionInCoreDataWith(data: data, mapper: self.mappers.createHotspotEntityFrom)
                 print(data)
             case .Error(let message):
                 DispatchQueue.main.async {
                     print(message)
+                }
+            }
+        }
+    }
+    
+    func fetchHotspots(latitude: Double, longitude: Double, radius: Int, completion: @escaping (ApiService.Result<[Hotspot]>) -> Void) {
+        let path = "hotspots?latitude=" + String(latitude) + "&longitude=" + String(longitude) + "&radius=" + String(radius)
+        apiService.getDataWith(path: path) { (result) in
+            switch result {
+            case .Success(let data):
+                let mappedData = self.saveCollectionInCoreDataWith(data: data, mapper: self.mappers.createHotspotEntityFrom)
+                return completion(.Success(mappedData as! [Hotspot]))
+            case .Error(let message):
+                DispatchQueue.main.async {
+                    completion(.Error(message))
                 }
             }
         }
@@ -89,30 +104,34 @@ class DataService {
     
     // MARK: - Helpers
     private func saveInCoreDataWith(data: [String: AnyObject],
-                                    mapper: (_ dictionary:[String: AnyObject]) -> NSManagedObject?) {
-        _ = mapper(data)
+                                    mapper: (_ dictionary:[String: AnyObject]) -> NSManagedObject?) -> NSManagedObject? {
+        let mappedItem = mapper(data)
         
         do {
             try CoreDataStack.sharedInstance.persistentContainer.viewContext.save()
         } catch let error {
             print(error)
         }
+        
+        return mappedItem
     }
     
     private func saveCollectionInCoreDataWith(data: [String: AnyObject],
-                                              mapper: (_ dictionary:[String: AnyObject]) -> NSManagedObject?) {
+                                              mapper: (_ dictionary:[String: AnyObject]) -> NSManagedObject?) -> [NSManagedObject] {
         guard let items = data["items"] as? [[String: AnyObject]] else {
             // prob should throw an error here
             print("items was expected but not found in data: " + data.description)
-            return
+            return []
         }
         
-        _ = items.map{mapper($0)}
+        let mappedItems = items.map{mapper($0)}
         
         do {
             try CoreDataStack.sharedInstance.persistentContainer.viewContext.save()
         } catch let error {
             print(error)
         }
+        
+        return mappedItems as! [NSManagedObject]
     }
 }
