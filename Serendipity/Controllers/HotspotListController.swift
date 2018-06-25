@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import MapKit
 
-class HotspotListController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class HotspotListController: UIViewController, UITableViewDelegate, UITableViewDataSource, MKMapViewDelegate {
     
     let DEFAULT_RADIUS_M: Double = 100000
     
@@ -30,10 +30,10 @@ class HotspotListController: UIViewController, UITableViewDelegate, UITableViewD
         self.hotspotTable.delegate = self
         self.hotspotTable.dataSource = self
         
-        self.lookupHotspots()
+        self.initMap()
         NotificationCenter.default.addObserver(forName: LocationService.LOCATION_UPDATE_NOTIFICATION, object: nil, queue: nil) { (notification) in
-            print("location updated. new lat:", self.locationService.currentLat)
-            self.lookupHotspots()
+            print("location updated. new lat:", self.locationService.currentLat as Any)
+            self.initMap()
         }
     }
     
@@ -45,7 +45,8 @@ class HotspotListController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     // MARK: - Map handling
-    func lookupHotspots() {
+    
+    func initMap() {
         guard let currentLat = self.locationService.currentLat else {
             return
         }
@@ -54,12 +55,26 @@ class HotspotListController: UIViewController, UITableViewDelegate, UITableViewD
             return
         }
         
-        dataService.fetchHotspots(latitude: currentLat, longitude: currentLong, radius: Int(DEFAULT_RADIUS_M)) { (result) in
+        let center = CLLocation(latitude: currentLat, longitude: currentLong)
+        
+        // in meters
+        let regionRadius: CLLocationDistance = DEFAULT_RADIUS_M
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(center.coordinate,
+                                                                  regionRadius, regionRadius)
+        nearbyMap.setRegion(coordinateRegion, animated: true)
+        nearbyMap.delegate = self
+        
+        self.lookupHotspots(latitude: currentLat, longitude: currentLong, radius: Int(regionRadius))
+    }
+    
+    func lookupHotspots(latitude: Double, longitude: Double, radius: Int) {
+        
+        dataService.fetchHotspots(latitude: latitude, longitude: longitude, radius: radius) { (result) in
             switch result {
             case .Success(let data):
                 self.hotspots = data
-                self.initMap()
                 self.hotspotTable.reloadData()
+                self.addAnnotationsToMap()
             case .Error(let message):
                 // TODO: something user friendly
                 print(message)
@@ -67,16 +82,8 @@ class HotspotListController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    func initMap() {
-        let center = CLLocation(latitude: locationService.currentLat!, longitude: locationService.currentLong!)
+    func addAnnotationsToMap() {
         let annotations = buildAnnotations()
-        
-        // in meters
-        let regionRadius: CLLocationDistance = DEFAULT_RADIUS_M
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(center.coordinate,
-                                                                  regionRadius, regionRadius)
-        nearbyMap.setRegion(coordinateRegion, animated: true)
-        
         nearbyMap.removeAnnotations(nearbyMap.annotations)
         nearbyMap.addAnnotations(annotations)
     }
@@ -93,6 +100,26 @@ class HotspotListController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         return annotations
+    }
+    
+    // MARK: - MKMapViewDelegate methods
+    
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        print("map changed", mapView.userLocation, mapView.region)
+        let span = mapView.region.span
+        let center = mapView.region.center
+        
+        let loc1 = CLLocation(latitude: center.latitude - span.latitudeDelta * 0.5, longitude: center.longitude)
+        let loc2 = CLLocation(latitude: center.latitude + span.latitudeDelta * 0.5, longitude: center.longitude)
+        let loc3 = CLLocation(latitude: center.latitude, longitude: center.longitude - span.longitudeDelta * 0.5)
+        let loc4 = CLLocation(latitude: center.latitude, longitude: center.longitude + span.longitudeDelta * 0.5)
+        
+        let metersInLatitude = loc1.distance(from: loc2)
+        let metersInLongitude = loc3.distance(from: loc4)
+        
+        let radius = min(metersInLatitude, metersInLongitude)
+        
+        self.lookupHotspots(latitude: center.latitude, longitude: center.longitude, radius: Int(radius))
     }
     
     // MARK: - UITableView delegate and dataSource methods
